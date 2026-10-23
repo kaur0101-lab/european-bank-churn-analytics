@@ -6,12 +6,11 @@ import numpy as np
 # 1. Page Configuration & Styling
 st.set_page_config(
     page_title="European Banking Churn Analytics",
-    page_icon="🏦",
     layout="wide"
 )
 
 # Custom header layout
-st.markdown("<h1 style='color: #1f77b4;'>🏦 Customer Segmentation & Churn Pattern Analytics</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color: #1f77b4;'>Customer Segmentation & Churn Pattern Analytics</h1>", unsafe_allow_html=True)
 st.markdown("**Unified Mentor | European Central Bank Decision Support Dashboard**")
 st.markdown("---")
 
@@ -42,7 +41,7 @@ df = load_and_process_data()
 
 if not df.empty:
     # 3. Sidebar User Capabilities (Segment Filters)
-    st.sidebar.header("🔍 Interactive Segment Filters")
+    st.sidebar.header("Segment Filters")
     selected_geo = st.sidebar.multiselect("Geography", options=df['Geography'].unique(), default=df['Geography'].unique())
     selected_gender = st.sidebar.multiselect("Gender", options=df['Gender'].unique(), default=df['Gender'].unique())
     selected_age = st.sidebar.multiselect("Age Group", options=df['AgeGroup'].dropna().unique(), default=df['AgeGroup'].dropna().unique())
