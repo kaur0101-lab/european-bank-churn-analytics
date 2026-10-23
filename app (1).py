@@ -138,7 +138,8 @@ if not df.empty:
 
     # 6. Drill-Down Views Capability
    st.markdown("---")
-st.subheader("Detailed Granular Drill-Down Views")
+with st.expander("Detailed Customer Drill-Down View (Raw Filtered Dataset)"):
+    st.markdown("Examine individual records instantly based on your active sidebar filter selections:")
 
 view_option = st.selectbox(
     "Select Drill-Down View:",
