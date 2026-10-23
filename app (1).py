@@ -136,26 +136,25 @@ if not df.empty:
                                     opacity=0.6, title="Estimated Salary vs Balance (High-Value Risk)", color_discrete_map=color_map)
             st.plotly_chart(fig_scatter, use_container_width=True)
 
-    # 6. Drill-Down Views Capability
-   st.markdown("---")
-with st.expander("Detailed Customer Drill-Down View (Raw Filtered Dataset)"):
-    st.markdown("Examine individual records instantly based on your active sidebar filter selections:")
+   # 6. Granular Drill-Down Views
+    st.markdown("---")
+    st.subheader("Granular Drill-Down Views")
 
-view_option = st.selectbox(
-    "Select Drill-Down View:",
-    ["Filtered Customer Roster", "High-Value Churned Customers", "Segment Risk Matrix (Geo vs Age)"]
-)
+    view_option = st.selectbox(
+        "Select Drill-Down View:",
+        ["Filtered Customer Roster", "High-Value Churned Customers", "Segment Risk Matrix (Geo vs Age)"]
+    )
 
-if view_option == "Filtered Customer Roster":
-    st.markdown("**View 1: Full Filtered Customer Dataset**")
-    st.dataframe(filtered_df[['CustomerId', 'Geography', 'Gender', 'Age', 'CreditScore', 'Balance', 'NumOfProducts', 'IsActiveMember', 'EstimatedSalary', 'ChurnStatus']], use_container_width=True)
+    if view_option == "Filtered Customer Roster":
+        st.markdown("**View 1: Full Filtered Customer Dataset**")
+        st.dataframe(filtered_df[['CustomerId', 'Geography', 'Gender', 'Age', 'CreditScore', 'Balance', 'NumOfProducts', 'IsActiveMember', 'EstimatedSalary', 'ChurnStatus']], use_container_width=True)
 
-elif view_option == "High-Value Churned Customers":
-    st.markdown("**View 2: High-Value Churned Roster (Balance > €100,000)**")
-    high_val_churn = filtered_df[(filtered_df['Exited'] == 1) & (filtered_df['Balance'] > 100000)]
-    st.dataframe(high_val_churn[['CustomerId', 'Geography', 'Age', 'Balance', 'NumOfProducts', 'EstimatedSalary']], use_container_width=True)
+    elif view_option == "High-Value Churned Customers":
+        st.markdown("**View 2: High-Value Churned Roster (Balance > €100,000)**")
+        high_val_churn = filtered_df[(filtered_df['Exited'] == 1) & (filtered_df['Balance'] > 100000)]
+        st.dataframe(high_val_churn[['CustomerId', 'Geography', 'Age', 'Balance', 'NumOfProducts', 'EstimatedSalary']], use_container_width=True)
 
-elif view_option == "Segment Risk Matrix (Geo vs Age)":
-    st.markdown("**View 3: Churn Rate (%) Matrix by Geography and Age Group**")
-    matrix_df = filtered_df.pivot_table(index='Geography', columns='AgeGroup', values='Exited', aggfunc='mean', observed=False) * 100
-    st.dataframe(matrix_df.style.format("{:.1f}%"), use_container_width=True)
+    elif view_option == "Segment Risk Matrix (Geo vs Age)":
+        st.markdown("**View 3: Churn Rate (%) Matrix by Geography and Age Group**")
+        matrix_df = filtered_df.pivot_table(index='Geography', columns='AgeGroup', values='Exited', aggfunc='mean', observed=False) * 100
+        st.dataframe(matrix_df.style.format("{:.1f}%"), use_container_width=True)
